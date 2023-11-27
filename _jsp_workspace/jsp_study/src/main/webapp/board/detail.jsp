@@ -46,7 +46,7 @@
 		</tr>
 	</table>
 	<a href="/brd/modify?bno=${bvo.bno }"><button>modify</button></a>
-	<a href="/brd/delete?bno=${bvo.bno }"><button>remove</button></a>
+	<a href="/brd/remove?bno=${bvo.bno }"><button>remove</button></a>
 	<a href="/brd/list"><button>list</button></a>
 </body>
 </html>

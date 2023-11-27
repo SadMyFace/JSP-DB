@@ -13,5 +13,7 @@ public interface BoardService {
 	BoardVO getDetail(int bno);
 
 	int modify(BoardVO bvo);
+
+	int remove(int bno);
 	
 }

@@ -29,4 +29,8 @@
   			where bno = #{bno}
   	</update>
   	
+  	<delete id="del" parameterType="int">
+  		delete from board where bno = #{bno}
+  	</delete>
+  	
   </mapper>

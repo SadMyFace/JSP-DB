@@ -72,5 +72,16 @@ public class BoardDAOImpl implements BoardDAO {
 		}	
 		return isOk;
 	}
+
+	@Override
+	public int remove(int bno) {
+		// TODO Auto-generated method stub
+		log.info(">>>> remove check 3");
+		int isOk = sql.delete("BoardMapper.del", bno);
+		if(isOk > 0) {
+			sql.commit();
+		}
+		return isOk;
+	}
 	
 }

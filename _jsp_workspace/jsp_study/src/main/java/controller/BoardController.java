@@ -138,10 +138,16 @@ public class BoardController extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
-		case "delete" : 
+		case "remove" : 
 			try {
 				//파라미터로 받은 bno, title, content 데이터를
 				//DB에 수정하여 넣고, list로 이동
+				int bno = Integer.parseInt(request.getParameter("bno"));
+				log.info("remove check 1");
+				isOk = bsv.remove(bno);
+				log.info("remove >>> {} ", isOk > 0 ? "OK" : "Fail");
+				
+				destPage = "list";
 			} catch (Exception e) {
 				// TODO: handle exception
 				log.info("delete Error");
