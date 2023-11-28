@@ -17,4 +17,15 @@
   		update member set lastlogin = now() where id = #{id}
   	</update>
   	
+  	<select id="printList" resultType="mvo">
+  		select * from member order by regdate
+  	</select>
+  	
+  	<update id="updateInfo" parameterType="mvo">
+  		update member set pwd=#{pwd}, email=#{email}, age=#{age} where id=#{id}
+  	</update>
+  	
+  	<delete id="remove" parameterType="string">
+  		delete from member where id = #{id}
+  	</delete>
   </mapper>

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -123,7 +124,7 @@ public class MemberController extends HttpServlet {
 				
 				//lastLogin update
 				isOk = msv.lastLogin(mvo.getId());
-				log.info("lastLogin >>> {} ", isOk > 0 ? "OK" : "Fail");
+				log.info("lastLogin >>> {}                                                                                                                                                                                                                                                                ", isOk > 0 ? "OK" : "Fail");
 				ses.invalidate(); //세션 무효화(세션 끊기)
 				destPage = "/index.jsp";					
 		
@@ -134,6 +135,68 @@ public class MemberController extends HttpServlet {
 			}
 
 			break;
+		case "list" : 
+			try {
+				log.info(">>> list check 1");
+				List<MemberVO> list = msv.printList(); 
+				HttpSession ses = request.getSession();
+				request.setAttribute("printList", list);
+				
+				destPage = "/member/list.jsp";
+			} catch (Exception e) {
+				// TODO: handle exception
+				log.info(">>> list error");
+				e.printStackTrace();
+			}
+			break;
+		case "detail" : 
+			destPage = "/member/detail.jsp";
+			break;
+		case "modify" : 
+			try {
+				String id = request.getParameter("id");
+				String pw = request.getParameter("pw");
+				String email = request.getParameter("email");
+				int age = Integer.parseInt(request.getParameter("age"));
+				
+				MemberVO mvo = new MemberVO(id, pw, email, age);
+				
+				log.info(">>> update Info check 1");
+				
+				isOk = msv.updateInfo(mvo);
+				log.info("updateInfo >>> {}", (isOk > 0) ? "OK" : "Fail");
+				
+				HttpSession ses = request.getSession();
+				ses.invalidate(); //세션 무효화(세션 끊기)
+				
+				request.setAttribute("modifySuccess", isOk);
+				
+				destPage = "/index.jsp";
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				log.info("detail error");
+				e.printStackTrace();
+			}
+		case "remove" : 
+			try {
+				String id = request.getParameter("id");
+				log.info(">>> remove check 1" + id);
+				
+				isOk = msv.remove(id);
+				log.info("remove >>> {}", (isOk > 0) ? "OK" : "Fail");
+				
+				HttpSession ses = request.getSession();
+				ses.invalidate(); //세션 무효화(세션 끊기)
+				
+				request.setAttribute("removeSuccess", isOk);
+				
+				destPage = "/index.jsp";
+			} catch (Exception e) {
+				// TODO: handle exception
+				log.info("remove error");
+				e.printStackTrace();
+			}
 		default : 
 			break;
 		}

@@ -26,11 +26,16 @@
 			${ses.id }님이 login 하셨습니다. <br>
 			계정생성일 : ${ses.regdate } <br>
 			마지막접속 : ${ses.lastlogin } <br>
-			<a href="#"><button>회원정보수정</button></a>
-			<a href="#"><button>회원리스트</button></a>
+			<a href="/memb/detail"><button>회원정보수정</button></a>
+			<a href="/memb/list"><button>회원리스트</button></a>
 			<a href="/memb/logout"><button>로그아웃</button></a> <br>
 			<a href="/brd/register"><button type="button">글쓰기 페이지로 이동</button></a>
 		</c:if>
+		
+		<%-- <c:if test="${modifySuccess > 0 }">
+			<p>회원 정보 수정에 성공하였습니다.</p>
+		</c:if> --%>
+		
 		
 		
 	</div>
@@ -49,6 +54,20 @@
 		
 		if(msg_login == '-1'){
 			alert('로그인 정보가 일치하지 않습니다.');
+		}
+		
+		const msg_modify = `<c:out value="${modifySuccess}" />`;
+		console.log(msg_modify);
+		
+		if(msg_modify == '1'){
+			alert('회원 정보 수정 완료');
+		}
+		
+		const msg_remove = `<c:out value="${removeSuccess}" />`;
+		console.log(msg_remove);
+		
+		if(msg_remove == '1'){
+			alert('회원 정보 삭제 완료');
 		}
 	</script>
 </body>
