@@ -180,18 +180,38 @@ public class MemberController extends HttpServlet {
 			}
 		case "remove" : 
 			try {
-				String id = request.getParameter("id");
-				log.info(">>> remove check 1" + id);
+				//방법 1. 쿼리스트링을 통해서 값 가져와 삭제하기
+				//방법 2. 세션에서 객체 가져와서 getter로 삭제하기
 				
-				isOk = msv.remove(id);
+				//밑의 경우는 방법 1의 경우
+				
+//				 String id = request.getParameter("id"); log.info(">>> remove check 1" + id);
+//				 
+//				 isOk = msv.remove(id); 
+//				 log.info("remove >>> {}", (isOk > 0) ? "OK" : "Fail");
+//				 
+//				 HttpSession ses = request.getSession(); 
+//				 ses.invalidate(); //세션 무효화(세션 끊기)
+//				 
+//				 request.setAttribute("removeSuccess", isOk);
+//				  
+//				 destPage = "/index.jsp";
+				 
+				
+				//밑의 경우는 방법 2의 경우
+				HttpSession ses = request.getSession();
+				MemberVO mvo = (MemberVO) ses.getAttribute("ses");
 				log.info("remove >>> {}", (isOk > 0) ? "OK" : "Fail");
 				
-				HttpSession ses = request.getSession();
-				ses.invalidate(); //세션 무효화(세션 끊기)
-				
-				request.setAttribute("removeSuccess", isOk);
-				
+				ses.invalidate(); //세션 무효화(세션 끊기)					
+
+				if(isOk > 0) {
+					request.setAttribute("removeSuccess", isOk);
+				}
+				  
 				destPage = "/index.jsp";
+				
+				isOk = msv.remove(mvo.getId());
 			} catch (Exception e) {
 				// TODO: handle exception
 				log.info("remove error");

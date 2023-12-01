@@ -12,8 +12,8 @@
   			values(#{title}, #{writer}, #{content})
   	</insert>
   	
-  	<select id="list" resultType="bvo">
-  		select * from board order by bno desc
+  	<select id="list" parameterType="pgvo" resultType="bvo">
+  		select * from board order by bno desc limit #{pageStart}, #{qty}
   	</select>
   	
   	<update id="read" parameterType="int">
@@ -28,6 +28,10 @@
   		update board set title = #{title}, content = #{content}, moddate = now() 
   			where bno = #{bno}
   	</update>
+  	
+  	<select id="getCount" resultType="int">
+  		select count(bno) from board 
+  	</select>
   	
   	<delete id="del" parameterType="int">
   		delete from board where bno = #{bno}
