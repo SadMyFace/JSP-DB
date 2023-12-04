@@ -13,7 +13,9 @@
   	</insert>
   	
   	<select id="list" parameterType="pgvo" resultType="bvo">
-  		select * from board order by bno desc limit #{pageStart}, #{qty}
+  		select * from board 
+  		<include refid="search"></include>
+  		order by bno desc limit #{pageStart}, #{qty}
   	</select>
   	
   	<update id="read" parameterType="int">
@@ -29,12 +31,35 @@
   			where bno = #{bno}
   	</update>
   	
-  	<select id="getCount" resultType="int">
-  		select count(bno) from board 
+  	<select id="getCount" parameterType="pgvo" resultType="int">
+  		select count(bno) from board <include refid="search"></include>
   	</select>
   	
   	<delete id="del" parameterType="int">
   		delete from board where bno = #{bno}
   	</delete>
+  	
+  	<sql id="search">
+  		<if test="type != null">
+  			<trim prefix="where (" suffix=")" prefixOverrides="or">
+  				<foreach collection="typeToArray" item="type">
+  					<trim prefix="or">
+  						<choose>
+  							<when test="type == 't'.toString()">
+  								<!-- concat 함수 사용하여 붙이기 -->
+  								title like concat('%', #{keyword}, '%')
+  							</when>
+  							<when test="type == 'c'.toString()">
+  								content like concat('%', #{keyword}, '%')
+  							</when>	
+  							<when test="type == 'w'.toString()">
+  								writer like concat('%', #{keyword}, '%')
+  							</when>
+  						</choose>
+  					</trim>
+  				</foreach>
+  			</trim>
+  		</if>
+  	</sql>
   	
   </mapper>

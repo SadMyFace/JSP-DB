@@ -52,5 +52,26 @@
 			<a href="/brd/remove?bno=${bvo.bno }"><button>remove</button></a>
 		</c:if>
 		<a href="/brd/list"><button>list</button></a>
+		
+		<!-- comment line -->
+		<hr>
+		<div>
+			comment line <br>
+			<input type="text" id="cmtWriter" value="${ses.id }" readonly="readonly"> <br>
+			<input type="text" id="cmtText" placeholder="Add Comment...">
+			<button type="button" id="cmtAddBtn">댓글 등록</button>
+		</div>
+		
+		<!-- 댓글 표시 라인 -->
+		<div id="commentLine">
+			<div>cno, bno, writer</div>
+			<div>content, regdate</div>
+		</div>
+		
+		<script type="text/javascript">
+			 const bnoVal = `<c:out value="${bvo.bno}" />`;
+			 console.log(bnoVal);
+		</script>
+		<script src="/resources/board_detail.js"></script>
 </body>
 </html>

@@ -100,20 +100,24 @@ public class BoardController extends HttpServlet {
 				if(request.getParameter("pageNo") != null) {
 					int pageNo = Integer.parseInt(request.getParameter("pageNo"));
 					int qty = Integer.parseInt(request.getParameter("qty"));
-					log.info(">>> pageNo / qty " + pageNo + " / " + qty);
-					pgvo = new PagingVO(pageNo, qty);
+					String type = request.getParameter("type");
+					String keyword = request.getParameter("keyword");
+					log.info(">>> pageNo / qty " + pageNo + " / " + qty + " / " + type + " / " + keyword);
+					pgvo = new PagingVO(pageNo, qty, type, keyword);
 				}
 				
 				List<BoardVO> list = bsv.getList(pgvo);
 				log.info("list >>>> {} " + list);
-
+				
+				//검색한 값의 게시글 카운트	
 				log.info(">>> totalCount check 1");
-				int totalCount = bsv.getCount(); //db에서 전체 게시글 수 가져오기
+				int totalCount = bsv.getCount(pgvo); //db에서 전체 게시글 수 가져오기
 				log.info("totalCount >>> {} " + totalCount);
 				
 				PagingHandler ph = new PagingHandler(pgvo, totalCount);
 				
 				//list를 jsp로 전송
+				//검색어를 반영한 리스트
 				request.setAttribute("list", list);
 				request.setAttribute("ph", ph);
 				destPage = "/board/list.jsp";
