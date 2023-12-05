@@ -64,8 +64,11 @@
 		
 		<!-- 댓글 표시 라인 -->
 		<div id="commentLine">
-			<div>cno, bno, writer</div>
-			<div>content, regdate</div>
+			<div>cno, bno, writer, regdate</div>
+			<div>
+				<button>수정</button>  <button>삭제</button> <br>
+				<input value="content">
+			</div>
 		</div>
 		
 		<script type="text/javascript">
@@ -73,5 +76,8 @@
 			 console.log(bnoVal);
 		</script>
 		<script src="/resources/board_detail.js"></script>
+		<script type="text/javascript">
+			printCommentList(bnoVal);
+		</script>
 </body>
 </html>
