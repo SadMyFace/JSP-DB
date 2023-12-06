@@ -20,13 +20,20 @@ function spreadCommentList(result) { //result => 댓글 리스트
     console.log("comment List >> " + result);
     let div = document.getElementById("commentLine");
     div.innerHTML = ""; //원래 만들어뒀던 구조 지우기
+    let writer = document.getElementById('cmtWriter').value;
+    console.log(writer);
     for (let i = 0; i < result.length; i++) {
         let html = `<div>`;
         html += `<div>${result[i].cno}, ${result[i].bno}, ${result[i].writer}, ${result[i].regdate}</div>`;
         html += `<div>`;
-        html += `<button type="button" data-cno="${result[i].cno}" class="cmtModBtn">수정</button>`;
-        html += `<button type="button" data-cno="${result[i].cno}" class="cmtDelBtn">삭제</button> <br>`;
         html += `<input type="text" value="${result[i].content}" class="cmtText">`;
+
+        if (writer == result[i].writer) {
+            html += `<button type="button" data-cno="${result[i].cno}" class="cmtModBtn">수정</button>`;
+            html += `<button type="button" data-cno="${result[i].cno}" class="cmtDelBtn">삭제</button> <br>`;
+        }
+
+
         html += `</div></div><br><hr>`;
         div.innerHTML += html; //각 댓글 객체를 누적해서 담기
     }
@@ -136,6 +143,19 @@ document.addEventListener('click', (e) => {
             }
         })
     }
-
     //수정버튼이 클릭되면...
+    if (e.target.classList.contains('cmtModBtn')) {
+        let cnoVal = e.target.dataset.cno;
+        console.log(cnoVal);
+        let div = e.target.closest('div'); //타겟을 기준으로 가장 가까운 div 찾기
+        let cmtText = div.querySelector('.cmtText').value;
+        console.log(cmtText);
+        updateCommentFromServer(cnoVal, cmtText).then(result => {
+            if (result > 0) {
+                alert('댓글 수정 성공~!!');
+                printCommentList(bnoVal);
+            }
+        })
+    }
+
 })

@@ -40,4 +40,11 @@ public class CommentServiceImpl implements CommentService {
 		return cdao.remove(cno);
 	}
 
+	@Override
+	public int modify(CommentVO cvo) {
+		// TODO Auto-generated method stub
+		log.info(">>> modify check 2");
+		return cdao.modify(cvo);
+	}
+
 }

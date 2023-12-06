@@ -54,4 +54,17 @@ public class CommentDAOImpl implements CommentDAO {
 		return isOk;
 	}
 
+	@Override
+	public int modify(CommentVO cvo) {
+		// TODO Auto-generated method stub
+		log.info(">>> modify check 3");
+		
+		int isOk = sql.update("CommentMapper.modify", cvo);
+		
+		if(isOk > 0) {
+			sql.commit();
+		}
+		return isOk;
+	}
+
 }

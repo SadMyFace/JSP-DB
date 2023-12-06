@@ -146,11 +146,42 @@ public class CommentController extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case "modify" : 
+			try {
+				StringBuffer sb = new StringBuffer();
+				String line = "";
+				BufferedReader br = request.getReader();
+				
+				while((line = br.readLine()) != null) {
+					sb.append(line);
+				}
+				log.info(">>> sb >>> {} " + sb.toString());
+				JSONParser parser = new JSONParser();
+				JSONObject jsonObj = (JSONObject) parser.parse(sb.toString());
+				
+				int cno = Integer.parseInt(jsonObj.get("cno").toString());
+				String content = jsonObj.get("content").toString();
+				
+				CommentVO cvo = new CommentVO(cno, content);
+				log.info(">>> cvo >>> {} ", cvo);
+				
+				log.info(">>> modify check 1");
+				isOk = csv.modify(cvo);
+				log.info("isOk >>> " + ((isOk > 0) ? "OK" : "Fail"));
+				
+				PrintWriter out = response.getWriter();
+				out.print(isOk);
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				log.info(">>> modify error~!!");
+				e.printStackTrace();
+			}
+			break;
 		default: 
 			break;
 		}
 	}
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		service(request, response);
