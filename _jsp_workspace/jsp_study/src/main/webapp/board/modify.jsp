@@ -7,15 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Detail</h1>
-	<!-- 		this.bno = bno;
-		this.title = title;
-		this.writer = writer;
-		this.content = content;
-		this.regdate = regdate;
-		this.moddate = moddate;
-		this.readCount = readCount; -->
-	<form action="/brd/edit" method="post">
+	<h1>Modify Page</h1>
+	<img alt="" src="/_fileUpload/${bvo.imageFile }">
+	<form action="/brd/edit" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="bno" value="${bvo.bno }">
 	<table border="1">
 		<tr>
@@ -29,7 +23,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><input type="text" name="title" value="${bvo.writer }" readonly="readonly"></td>
+			<td><input type="text" name="writer" value="${bvo.writer }" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<th>내용</th>
@@ -37,15 +31,22 @@
 		</tr>
 		<tr>
 			<th>작성일</th>
-			<td><input type="text" name="title" value="${bvo.regdate }" readonly="readonly"></td>
+			<td><input type="text" name="regdate" value="${bvo.regdate }" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<th>수정일</th>
-			<td><input type="text" name="title" value="${bvo.moddate }" readonly="readonly"></td>
+			<td><input type="text" name="moddate" value="${bvo.moddate }" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<th>조회수</th>
-			<td><input type="text" name="title" value="${bvo.readCount }" readonly="readonly"></td>
+			<td><input type="text" name="readCount" value="${bvo.readCount }" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>Image_File</th>
+			<td>
+				<input type="hidden" name="imgae_file" value="${bvo.imageFile }">
+				<input type="file" name="new_file">
+			</td>
 		</tr>
 		
 	</table>

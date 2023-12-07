@@ -23,7 +23,10 @@
 		<c:forEach items="${list }" var="bvo">
 		<tr>
 			<td><a href="/brd/detail?bno=${bvo.bno}">${bvo.bno }</a></td>
-			<td><a href="/brd/detail?bno=${bvo.bno}">${bvo.title }</a></td>
+			<td><a href="/brd/detail?bno=${bvo.bno}">${bvo.title }
+				<c:if test="${bvo.imageFile ne null }">
+					<img alt="" src="/_fileUpload/_th_${bvo.imageFile }">
+				</c:if></a></td>
 			<td>${bvo.writer }</td>
 			<td>${bvo.regdate }</td>
 			<td>${bvo.readCount }</td>

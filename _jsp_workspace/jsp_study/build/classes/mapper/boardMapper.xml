@@ -8,8 +8,8 @@
   	<!-- daoimpl() namespace.id ex) BoardMapper.list -->
   	<!-- parameterType = 매개변수 객체, resultType = 결과로 나가는 객체 -->
   	<insert id="add" parameterType="bvo">
-  		insert into board(title, writer, content) 
-  			values(#{title}, #{writer}, #{content})
+  		insert into board(title, writer, content, imageFile) 
+  			values(#{title}, #{writer}, #{content}, #{imageFile})
   	</insert>
   	
   	<select id="list" parameterType="pgvo" resultType="bvo">
@@ -27,7 +27,7 @@
   	</select>
   	
   	<update id="up" parameterType="bvo">
-  		update board set title = #{title}, content = #{content}, moddate = now() 
+  		update board set title = #{title}, content = #{content}, imageFile = #{imageFile}, moddate = now() 
   			where bno = #{bno}
   	</update>
   	

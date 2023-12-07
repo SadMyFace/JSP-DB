@@ -9,13 +9,9 @@
 </head>
 <body>
 	<h1>Detail</h1>
-	<!-- 		this.bno = bno;
-		this.title = title;
-		this.writer = writer;
-		this.content = content;
-		this.regdate = regdate;
-		this.moddate = moddate;
-		this.readCount = readCount; -->
+	<div>
+		<img alt="" src="/_fileUpload/${bvo.imageFile}">
+	</div>
 	<table border="1">
 		<tr>
 			<th>번호</th>
