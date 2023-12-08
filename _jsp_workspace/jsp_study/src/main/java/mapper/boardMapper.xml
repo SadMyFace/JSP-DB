@@ -39,6 +39,10 @@
   		delete from board where bno = #{bno}
   	</delete>
   	
+  	<select id="getFile" parameterType="int" resultType="string">
+  		select ImageFile from board where bno = #{bno}
+  	</select>
+  	
   	<sql id="search">
   		<if test="type != null">
   			<trim prefix="where (" suffix=")" prefixOverrides="or">

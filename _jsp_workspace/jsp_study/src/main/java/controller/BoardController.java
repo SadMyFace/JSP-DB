@@ -9,7 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;import javax.swing.JPopupMenu.Separator;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -24,6 +24,8 @@ import handler.PagingHandler;
 import net.coobird.thumbnailator.Thumbnails;
 import service.BoardService;
 import service.BoardServiceImpl;
+import service.CommentService;
+import service.CommentServiceImpl;
 
 /**
  * Servlet implementation class BoardController
@@ -42,7 +44,7 @@ public class BoardController extends HttpServlet {
 	
 	// controller <-> service
 	private BoardService bsv; // interface로 생성
-	
+	private CommentService csv;
 	
 	
        
@@ -244,9 +246,19 @@ public class BoardController extends HttpServlet {
 				//DB에 수정하여 넣고, list로 이동
 				int bno = Integer.parseInt(request.getParameter("bno"));
 				log.info("remove check 1");
-				isOk = bsv.remove(bno);
-				log.info("remove >>> {} ", isOk > 0 ? "OK" : "Fail");
+				//댓글, 파일도 같이 삭제
+				savePath = getServletContext().getRealPath("/_fileUpload");
 				
+				String file_name = bsv.findFile(bno);
+				if(file_name.length() > 0) {
+					FileRemoveHandler fh = new FileRemoveHandler();
+					fh.deleteFile(file_name, savePath);
+				}
+				csv = new CommentServiceImpl();
+				isOk = csv.removeComment(bno);
+				log.info("comment remove >>>> {} ", isOk > 0 ? "OK" : "Fail");
+				
+				isOk = bsv.remove(bno);
 				destPage = "list";
 			} catch (Exception e) {
 				// TODO: handle exception

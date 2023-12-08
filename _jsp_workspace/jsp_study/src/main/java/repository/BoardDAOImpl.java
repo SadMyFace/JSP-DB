@@ -93,5 +93,12 @@ public class BoardDAOImpl implements BoardDAO {
 		//title이 null일 경우 값이 포함되지 않을 수도 있음
 		return sql.selectOne("BoardMapper.getCount", pgvo);
 	}
+
+	@Override
+	public String findFile(int bno) {
+		// TODO Auto-generated method stub
+		log.info(">>> find file check 3");
+		return sql.selectOne("BoardMapper.getFile", bno);
+	}
 	
 }

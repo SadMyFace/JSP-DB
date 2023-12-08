@@ -21,4 +21,6 @@ public interface BoardDAO {
 
 	int getCount(PagingVO pgvo);
 
+	String findFile(int bno);
+
 }

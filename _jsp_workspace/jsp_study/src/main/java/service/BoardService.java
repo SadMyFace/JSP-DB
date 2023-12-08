@@ -18,5 +18,7 @@ public interface BoardService {
 	int remove(int bno);
 
 	int getCount(PagingVO pgvo);
+
+	String findFile(int bno);
 	
 }

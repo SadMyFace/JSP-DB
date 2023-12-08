@@ -64,4 +64,11 @@ public class BoardServiceImpl implements BoardService {
 		log.info(">>> totalCount check 2");
 		return bdao.getCount(pgvo);
 	}
+
+	@Override
+	public String findFile(int bno) {
+		// TODO Auto-generated method stub
+		log.info(">>> find file check 2");
+		return bdao.findFile(bno);
+	}
 }
